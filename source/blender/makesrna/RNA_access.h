@@ -707,6 +707,7 @@ extern StructRNA RNA_WorldMistSettings;
 extern StructRNA RNA_WorldTextureSlot;
 extern StructRNA RNA_XnorController;
 extern StructRNA RNA_XorController;
+extern StructRNA RNA_ZhangHangModifier;
 
 /* Pointer
  *

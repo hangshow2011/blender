@@ -91,6 +91,7 @@ EnumPropertyItem rna_enum_object_modifier_type_items[] = {
 	{eModifierType_Subsurf, "SUBSURF", ICON_MOD_SUBSURF, "Subdivision Surface", ""},
 	{eModifierType_Triangulate, "TRIANGULATE", ICON_MOD_TRIANGULATE, "Triangulate", ""},
 	{eModifierType_Wireframe, "WIREFRAME", ICON_MOD_WIREFRAME, "Wireframe", "Generate a wireframe on the edges of a mesh"},
+	{eModifierType_ZhangHang, "ZHANG_HANG", ICON_MOD_ARRAY, "Zhang Hang", ""},
 	{0, "", 0, N_("Deform"), ""},
 	{eModifierType_Armature, "ARMATURE", ICON_MOD_ARMATURE, "Armature", ""},
 	{eModifierType_Cast, "CAST", ICON_MOD_CAST, "Cast", ""},
@@ -411,6 +412,8 @@ static StructRNA *rna_Modifier_refine(struct PointerRNA *ptr)
 			return &RNA_MeshSequenceCacheModifier;
 		case eModifierType_SurfaceDeform:
 			return &RNA_SurfaceDeformModifier;
+		case eModifierType_ZhangHang:
+			return &RNA_ZhangHangModifier;
 		/* Default */
 		case eModifierType_None:
 		case eModifierType_ShapeKey:
@@ -4782,6 +4785,25 @@ static void rna_def_modifier_surfacedeform(BlenderRNA *brna)
 	RNA_def_property_clear_flag(prop, PROP_EDITABLE);
 }
 
+static void rna_def_modifier_zhanghang(BlenderRNA* brna)
+{
+	StructRNA* srna;
+	PropertyRNA* prop;
+
+	srna = RNA_def_struct(brna, "ZhangHangModifier", "Modifier");
+	RNA_def_struct_ui_text(srna, "ZhangHang Modifier", "");
+	RNA_def_struct_sdna(srna, "ZhangHangModifierData");
+	RNA_def_struct_ui_icon(srna, ICON_MOD_ARRAY);
+
+	prop = RNA_def_property(srna, "num_olives", PROP_INT, PROP_NONE);
+	RNA_def_property_range(prop, 0, 100);
+	RNA_def_property_ui_range(prop, 0, 100, 1, -1);
+	RNA_def_property_ui_text(prop,
+		"Olives",
+		"The number of olives on the pizza");
+	RNA_def_property_update(prop, 0, "rna_Modifier_update");
+}
+
 void RNA_def_modifier(BlenderRNA *brna)
 {
 	StructRNA *srna;
@@ -4900,6 +4922,7 @@ void RNA_def_modifier(BlenderRNA *brna)
 	rna_def_modifier_normaledit(brna);
 	rna_def_modifier_meshseqcache(brna);
 	rna_def_modifier_surfacedeform(brna);
+	rna_def_modifier_zhanghang(brna);
 }
 
 #endif
