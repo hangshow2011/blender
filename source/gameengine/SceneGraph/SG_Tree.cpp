@@ -195,7 +195,7 @@ public:
 		}
 	}
 	
-	T& operator() (unsigned int x, unsigned int y)
+	T& operator() (unsigned int x, unsigned int y) 
 	{
 		assert(x >= y);
 		return m_array[y][x - y];
