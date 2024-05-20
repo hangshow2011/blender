@@ -1539,6 +1539,9 @@ class DATA_PT_modifiers(ModifierButtonsPanel, Panel):
         if md.rest_source == 'BIND':
             layout.operator("object.correctivesmooth_bind", text="Unbind" if is_bind else "Bind")
 
+    def ZHANG_HANG(self, layout, ob, md):
+        layout.prop(md,"num_olives")
+
 
 classes = (
     DATA_PT_modifiers,
